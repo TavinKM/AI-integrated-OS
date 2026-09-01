@@ -1,0 +1,53 @@
+Goal-
+Given a man page or CLI documentation snippet, exhaustively extract each command and **all** of its options/flags and task-relevant arguments, plus relationships that explain what they do.
+
+Entity Types-
+COMMAND, OPTION, ARGUMENT, FILE, CONCEPT
+
+Target Commands-
+ls, cp, mv, rm, mkdir, rmdir, touch, cat, less, head, tail, find, grep, sed, awk, cut, sort, uniq, wc, chmod, chown, ps, top, kill, tar, gzip, gunzip, df, du, mount, umount, ping, ssh, scp, curl, wget, apt, dpkg, systemctl, journalctl, service, useradd, usermod, groupadd, passwd, cron, crontab, ip, ifconfig, netstat, ufw, gcc, g++, make, cmake, git, docker, kubectl, pip, python3, node, npm
+
+Steps-
+1. Identify all entities. For each entity, extract:
+- entity_name: Use canonical names exactly as in text (e.g., ls, --help, /etc/passwd)
+- entity_type: One of the types listed above
+- entity_description: Concise description of the entity’s purpose or role (max 20 words)
+Format each entity as:
+("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+
+2. Extract COMMAND → OPTION relationships exhaustively:
+- Treat every line in an OPTIONS or DESCRIPTION section that starts with one or more options/flags (e.g. "-a, --all", "--color[=WHEN]", "-n NUM, --max-count=NUM") as defining OPTION entities.
+- For such a line:
+  - Create an OPTION entity for **each** distinct option token on the line (e.g. "-a" and "--all" are two OPTION entities).
+  - Use the text on the right-hand side of the line as the basis for the option’s entity_description.
+  - Create a COMMAND→OPTION relationship from the command (e.g. "ls", "grep") to **each** option on that line.
+  - The relationship_description should be a short paraphrase of what the option does for that command (max 20 words).
+
+3. Extract additional relationships where clearly indicated:
+- COMMAND → ARGUMENT (e.g., find with "-maxdepth 1", "-name \"*.txt\"")
+- COMMAND → FILE (e.g., explicit files like "/etc/passwd", "script.sh")
+- COMMAND → CONCEPT for task-like descriptions (e.g., "List files sorted by size, largest first.")
+Each relationship includes:
+- source_entity
+- target_entity
+- relationship_description: Why they are related
+- relationship_strength: 1–10 (10 = explicit/critical)
+Format as:
+("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+4. Return a single list of all entities and relationships, using {record_delimiter} between records. End output with {completion_delimiter}.
+
+Rules-
+- Be **systematic**: if an option appears in OPTIONS or DESCRIPTION, you should normally create both an OPTION entity and a COMMAND→OPTION relationship for it.
+- Do not hallucinate commands, options, or files that are not present in the text.
+- Only extract entities present or strongly implied in text.
+- Descriptions must be factual, concise, ≤20 words.
+- Use lowercase command names (ls, grep, find, sed) and exact option spelling as shown in the text (e.g. "-l", "--human-readable").
+
+Example-
+("entity"{tuple_delimiter}ls{tuple_delimiter}COMMAND{tuple_delimiter}List directory contents)
+{record_delimiter}
+("entity"{tuple_delimiter}-l{tuple_delimiter}OPTION{tuple_delimiter}Use a long listing format)
+{record_delimiter}
+("relationship"{tuple_delimiter}ls{tuple_delimiter}-l{tuple_delimiter}The -l option shows long-format directory listings{tuple_delimiter}10)
+{completion_delimiter}
