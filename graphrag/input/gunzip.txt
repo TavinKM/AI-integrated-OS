@@ -1,0 +1,78 @@
+
+
+NAME
+
+       zcat - decompress and concatenate files to standard output
+
+
+SYNOPSIS
+
+       zcat [options] [files]
+
+
+DESCRIPTION
+
+       Zcat copies each given file to standard output. If any given file is comp ressed, its decompressed content
+       is used. If a given file does not exist, and its name does not end with o ne of the known extensions, zcat
+       tries the compressed file names corresponding to the formats supported.
+
+       If  a  file  is  specified as '-', data are read from standard input, dec ompressed if needed, and sent to
+       standard output. Data read from standard input must be of the same type; all uncompressed or all  in  the
+       same compression format.
+
+       If  no  files  are  specified, recursive searches examine the current wor king directory, and nonrecursive
+       searches read standard input.
+
+       The formats supported are bzip2, gzip, lzip and xz.
+
+       Exit status is 0 if no errors occurred, non-zero otherwise.
+
+
+OPTIONS
+
+       -h, --help display this help and exit
+
+       -V, --version output version information and exit
+
+       -A, --show-all equivalent to '-vET'
+
+       -b, --number-nonblank number nonblank output lines
+
+       -e     equivalent to '-vE'
+
+       -E, --show-ends display '$' at end of each line
+
+       -M, --format=<list> process only the formats in <list>
+
+       -n, --number number all output lines
+
+       -N, --no-rcfile don't read runtime configuration file
+
+       -O, --force-format=<fmt> force given format (bz2, gz, lz, xz)
+
+       -q, --quiet suppress all messages
+
+       -r, --recursive operate recursively on directories
+
+       -R, --dereference-recursive recursively follow symbolic links
+
+       -s, --squeeze-blank never more than one single blank line
+
+       -t     equivalent to '-vT'
+
+       -T, --show-tabs display TAB characters as '^I'
+
+       -v, --show-nonprinting
+              use '^' and 'M-' notation, except for LF and TAB
+
+       --verbose verbose mode (show error messages)
+
+       --bz2=<command> set compressor and options for bzip2 format
+
+       --gz=<command> set compressor and options for gzip format
+
+       --lz=<command> set compressor and options for lzip format
+
+       --xz=<command> set compressor and options for xz format
+
+

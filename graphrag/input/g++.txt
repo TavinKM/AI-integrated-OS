@@ -1,0 +1,7 @@
+
+
+
+   Powered by the Ubuntu Manpage Operator, file bugs in GitHub
+
+   © 2025 Canonical. Ubuntu and Canonical are registered trademarks of
+   Canonical Ltd.

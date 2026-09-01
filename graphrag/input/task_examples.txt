@@ -1,0 +1,173 @@
+# Task-oriented examples: intent -> command. Seeded from expected_commands.txt.
+# GraphRAG can extract COMMAND entities and link them to these intents.
+
+list all files in the current directory.
+ls
+
+list files in long format.
+ls -l
+
+show me the contents of groceries.txt.
+cat groceries.txt
+
+what is in groceries.txt.
+cat groceries.txt
+
+add eggs to the grocery list.
+echo eggs >> groceries.txt
+
+remove watermelon from the grocery list.
+grep -v watermelon groceries.txt
+
+show the grocery list without watermelon.
+grep -v watermelon groceries.txt
+
+create a new folder called notes.
+mkdir notes
+
+make a directory named backup.
+mkdir backup
+
+create an empty file called todo.txt.
+touch todo.txt
+
+count the lines in groceries.txt.
+wc -l groceries.txt
+
+how many lines are in groceries.txt.
+wc -l groceries.txt
+
+print the first line of groceries.txt.
+head -n 1 groceries.txt
+
+print the last line of groceries.txt.
+tail -n 1 groceries.txt
+
+list only directories here.
+ls -d */
+
+show current directory path.
+pwd
+
+go into the documents folder.
+cd documents
+
+change to the documents directory.
+cd documents
+
+list what is inside documents.
+ls documents
+
+create a text file named readme.txt with the word hello in it.
+echo hello > readme.txt
+
+append the word world to readme.txt.
+echo world >> readme.txt
+
+search for the word protein in groceries.txt.
+grep protein groceries.txt
+
+sort the lines in groceries.txt and show them.
+sort groceries.txt
+
+show me the contents of that folder.
+ls documents
+
+put a new file in the same place we used before.
+touch readme.txt
+
+list directory entries themselves, not their contents.
+ls -d
+
+list files with human-readable file sizes.
+ls -lh
+
+count how many lines match the word protein in groceries.txt.
+grep -c protein groceries.txt
+
+search for hello in groceries.txt ignoring case.
+grep -i hello groceries.txt
+
+find only files in the current directory, not directories.
+find . -maxdepth 1 -type f
+
+find only directories under the current folder.
+find . -type d
+
+limit find to one level, do not go into subdirectories.
+find . -maxdepth 1
+
+list entries sorted by modification time, newest first.
+ls -t
+
+show only the first 5 lines of groceries.txt.
+head -5 groceries.txt
+
+show only the last 5 lines of groceries.txt.
+tail -5 groceries.txt
+
+show disk space used by the current directory.
+du .
+
+show free disk space.
+df
+
+search for files named like *.txt in the current tree.
+find . -name "*.txt"
+
+make script.sh executable.
+chmod +x script.sh
+
+compress groceries.txt with gzip.
+gzip groceries.txt
+
+print only the names of files that contain the word protein.
+grep -l protein *
+
+search for watermelon recursively in all subdirectories.
+grep -r watermelon .
+
+show line numbers for each matching line when searching for protein in groceries.txt.
+grep -n protein groceries.txt
+
+count the number of words in groceries.txt.
+wc -w groceries.txt
+
+sort groceries.txt numerically.
+sort -n groceries.txt
+
+sort the lines of groceries.txt in reverse order.
+sort -r groceries.txt
+
+create the directory path notes/drafts/2024 including any missing parent directories.
+mkdir -p notes/drafts/2024
+
+find all files in the current directory tree that are larger than 1 megabyte.
+find . -type f -size +1M
+
+remove all blank lines from groceries.txt in place.
+sed -i '/^$/d' groceries.txt
+
+show only the byte count of groceries.txt.
+wc -c groceries.txt
+
+remove the file todo.txt without prompting even if it is read-only.
+rm -f todo.txt
+
+copy the documents folder and everything inside it to backup_documents.
+cp -r documents backup_documents
+
+show the last 20 bytes of groceries.txt.
+tail -c 20 groceries.txt
+
+list files sorted by size, largest first.
+ls -S
+
+show only the first 10 bytes of groceries.txt.
+head -c 10 groceries.txt
+
+find files modified in the last 7 days.
+find . -type f -mtime -7
+
+make only the owner able to read and write script.sh.
+chmod 600 script.sh

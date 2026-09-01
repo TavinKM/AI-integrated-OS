@@ -1,0 +1,58 @@
+
+
+NAME
+
+       crontab - maintain crontab files for individual users
+
+
+SYNOPSIS
+
+       crontab [-u user] file crontab [-u user] [-l | -r | -e | -s] [-i]
+
+       (blank) default operation is replace
+
+       -u, --user edit some other user's crontab
+
+       -l, --list list user's crontab
+
+       -r, --remove delete user's crontab
+
+       -e, --edit edit user's crontab
+
+       -s, --show show all user who have a crontab
+
+       -i, --ask prompt before deleting user's crontab
+
+
+DESCRIPTION
+
+       Crontab  is  the  program  used to let users install, deinstall or list r ecurrent jobs in the legacy cron
+       format.
+       Each user can have their own crontab, and though these are files in  /var
+/spool/cron/crontabs,  they  are not intended to be edited directly.
+       These jobs are then automatically translated in systemd Timers & Units by systemd-crontab-generator.
+
+
+FILES
+
+       /var/spool/cron/crontabs
+              Directory for users crontabs.
+
+       /etc/cron.allow list of users that can use crontab
+
+       /etc/cron.deny
+              list of users that aren't allowed to use crontab
+              (by default, only root can use crontab)
+
+
+LIMITATIONS
+
+       SELinux is not supported.
+
+       Some extra settings can only be tweaked with
+
+           systemctl edit cron-<schedule>.[timer|service]
+
+       see systemd.cron(7) for more details.
+
+

@@ -1,0 +1,127 @@
+
+
+NAME
+
+       systemctl - command line utility to manage services without SystemD
+
+
+SYNOPSIS
+
+       systemctl [options] command [name...]
+
+
+OPTIONS
+
+       -h, --help show this help message and exit
+
+       --version
+              Show package version
+
+       --system
+              Connect to system manager (default)
+
+       --user Connect to user service manager
+
+       -t TYPE, --type=TYPE
+              List units of a particual type
+
+       --state=STATE
+              List units with particular LOAD or SUB or ACTIVE state
+
+       -p NAME, --property=NAME
+              Show only properties by this name
+
+       -a, --all
+              Show  all  loaded  units/properties, including dead empty ones. To list all units installed on the
+              system, use the 'list-unit-files' command instead
+
+       -l, --full
+              Don't ellipsize unit names on output (never ellipsized)
+
+       --reverse
+              Show reverse dependencies with 'list-dependencies' (ignored)
+
+       --job-mode=MODE
+              Specifiy how to deal with already queued jobs, when queuing a new job (ignored)
+
+       --show-types
+              When showing sockets, explicitly show their type (ignored)
+
+       -i, --ignore-inhibitors
+              When shutting down or sleeping, ignore inhibitors (ignored)
+
+       --kill-who=WHO
+              Who to send signal to (ignored)
+
+       -s SIG, --signal=SIG
+              Which signal to send (ignored)
+
+       --now  Start or stop unit in addition to enabling or disabling it
+
+       -q, --quiet
+              Suppress output
+
+       --no-block
+              Do not wait until operation finished (ignored)
+
+       --no-legend
+              Do not print a legend (column headers and hints)
+
+       --no-wall
+              Don't send wall message before halt/power-off/reboot (ignored)
+
+       --no-reload
+              Don't reload daemon after en-/dis-abling unit files (ignored)
+
+       --no-ask-password
+              Do not ask for system passwords
+
+       --force
+              When enabling unit files, override  existing  symblinks  /  When shutting  down,  execute  action
+              immediately
+
+       --preset-mode=TYPE
+              Apply only enable, only disable, or all presets [all]
+
+       --root=PATH
+              Enable unit files in the specified root directory (used for altern ative root prefix)
+
+       -n NUM, --lines=NUM
+              Number of journal entries to show (ignored)
+
+       -o CAT, --output=CAT
+              change journal output mode [short, ..., cat] (ignored)
+
+       --plain
+              Print unit dependencies as a list instead of a tree (ignored)
+
+       --no-pager
+              Do not pipe output into pager (ignored)
+
+       --coverage=OPTIONLIST
+              ..support for coverage (e.g. spawn,oldest,sleep) []
+
+       -e NAME=VAL, --extra-vars=NAME=VAL, --environment=NAME=VAL
+              ..override settings in the syntax of 'Environment='
+
+       -v, --verbose
+              ..increase debugging information level
+
+       -4, --ipv4
+              ..only keep ipv4 localhost in /etc/hosts
+
+       -6, --ipv6
+              ..only keep ipv6 localhost in /etc/hosts
+
+       -1, --init
+              ..keep running as init-process (default if PID 1)
+
+       use 'help' command for more information
+
+systemctl 1.4.3424                                January 2020
+                    SYSTEMCTL(1)
+
+   Powered by the Ubuntu Manpage Operator, file bugs in GitHub
+
+   © 2025 Canonical. Ubuntu and Canonical are registered trademarks of
+   Canonical Ltd.
