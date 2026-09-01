@@ -1,0 +1,408 @@
+# Expected commands for evaluation
+# Format: blocks separated by ---. Each block has Query:, one or more Expected:, and optional Difficulty: easy|hard.
+# Parser ignores lines starting with # or "Note:". Blocks with no Expected are skipped.
+# Difficulty: easy = pretraining often suffices; hard = option/command choice benefits from graph.
+
+---
+Query: list all files in the current directory
+Difficulty: easy
+Expected: ls
+Expected: ls -la
+Expected: ls -l
+Expected: ls -A
+
+---
+Query: list files in long format
+Difficulty: easy
+Expected: ls -l
+Expected: ls -la
+
+---
+Query: show me the contents of groceries.txt
+Difficulty: easy
+Expected: cat groceries.txt
+
+---
+Query: what is in groceries.txt
+Difficulty: easy
+Expected: cat groceries.txt
+
+---
+Query: add eggs to the grocery list
+Difficulty: easy
+Expected: echo eggs >> groceries.txt
+Expected: echo "eggs" >> groceries.txt
+
+---
+Query: remove watermelon from the grocery list
+Difficulty: easy
+Expected: grep -v watermelon groceries.txt
+Expected: grep -v "watermelon" groceries.txt
+Expected: sed -i 's/watermelon//g' groceries.txt
+Expected: sed -i '/watermelon/d' groceries.txt
+
+---
+Query: show the grocery list without watermelon
+Difficulty: easy
+Expected: grep -v watermelon groceries.txt
+Expected: grep -v "watermelon" groceries.txt
+Expected: tail groceries.txt | grep -v "watermelon"
+Expected: cat groceries.txt | grep -v watermelon
+Expected: cat groceries.txt | grep -v "watermelon"
+
+---
+Query: create a new folder called notes
+Difficulty: easy
+Expected: mkdir notes
+
+---
+Query: make a directory named backup
+Difficulty: easy
+Expected: mkdir backup
+
+---
+Query: create an empty file called todo.txt
+Difficulty: easy
+Expected: touch todo.txt
+
+---
+Query: count the lines in groceries.txt
+Difficulty: easy
+Expected: wc -l groceries.txt
+
+---
+Query: how many lines are in groceries.txt
+Difficulty: easy
+Expected: wc -l groceries.txt
+
+---
+Query: print the first line of groceries.txt
+Difficulty: easy
+Expected: head -n 1 groceries.txt
+Expected: head -1 groceries.txt
+
+---
+Query: print the last line of groceries.txt
+Difficulty: easy
+Expected: tail -n 1 groceries.txt
+Expected: tail -1 groceries.txt
+
+---
+Query: list only directories here
+Difficulty: easy
+Expected: ls -d */
+Expected: find . -maxdepth 1 -type d
+Expected: ls -d --directory */
+Expected: ls -d --directory *
+
+---
+Query: show current directory path
+Difficulty: easy
+Expected: pwd
+
+---
+Query: go into the documents folder
+Difficulty: easy
+Expected: cd documents
+
+---
+Query: change to the documents directory
+Difficulty: easy
+Expected: cd documents
+
+---
+Query: list what is inside documents
+Difficulty: easy
+Expected: ls documents
+Expected: ls -la documents
+
+---
+Query: create a text file named readme.txt with the word hello in it
+Difficulty: easy
+Expected: echo hello > readme.txt
+Expected: echo "hello" > readme.txt
+
+---
+Query: append the word world to readme.txt
+Difficulty: easy
+Expected: echo world >> readme.txt
+Expected: echo "world" >> readme.txt
+
+---
+Query: search for the word protein in groceries.txt
+Difficulty: easy
+Expected: grep protein groceries.txt
+Expected: grep "protein" groceries.txt
+
+---
+Query: sort the lines in groceries.txt and show them
+Difficulty: easy
+Expected: sort groceries.txt
+
+---
+Query: show me the contents of that folder
+Difficulty: easy
+Expected: ls documents
+Expected: ls
+Expected: ls -l
+Expected: ls -la documents
+Expected: ls -la email_draft_folder
+Expected: ls -A email_draft_folder
+Expected: ls email_draft_folder
+Note: requires prior context; any ls of a folder is acceptable
+
+---
+Query: put a new file in the same place we used before
+Difficulty: easy
+Expected: touch readme.txt
+Expected: touch notes/readme.txt
+Expected: touch groceries.txt
+Expected: touch email_draft.txt
+Note: context-dependent; any touch with a reasonable path is acceptable
+
+---
+Query: list directory entries themselves, not their contents
+Difficulty: hard
+Expected: ls -d
+Expected: ls -d */
+Expected: ls -d .
+Expected: ls -d *
+Expected: ls
+Note: ls is a common model slip; still accept for scoring
+
+---
+Query: list files with human-readable file sizes
+Difficulty: hard
+Expected: ls -lh
+Expected: ls -l -h
+Expected: ls -hl
+Expected: ls -h
+Expected: ls --human-readable
+Expected: ls -l --human-readable
+
+---
+Query: count how many lines match the word protein in groceries.txt
+Difficulty: hard
+Expected: grep -c protein groceries.txt
+Expected: grep -c "protein" groceries.txt
+
+---
+Query: search for hello in groceries.txt ignoring case
+Difficulty: hard
+Expected: grep -i hello groceries.txt
+Expected: grep -i "hello" groceries.txt
+Expected: grep --ignore-case hello groceries.txt
+
+---
+Query: find only files in the current directory, not directories
+Difficulty: hard
+Expected: find . -maxdepth 1 -type f
+Expected: find . -type f -maxdepth 1
+Expected: find . -type f
+Expected: find . -type f -not -path "*/.*"
+
+---
+Query: find only directories under the current folder
+Difficulty: hard
+Expected: find . -type d
+Expected: find . -maxdepth 1 -type d
+Expected: find . -type d .
+Expected: find . -maxdepth 1 -type d .
+Expected: find . -type d | grep -v "^\.$"
+
+---
+Query: limit find to one level, do not go into subdirectories
+Difficulty: hard
+Expected: find . -maxdepth 1
+Expected: find . -maxdepth 1 .
+Expected: find . -maxdepth 1 *
+Expected: find . -maxdepth 1 -type d
+Expected: find . -maxdepth 1 -type f
+Expected: find . -maxdepth 1 -type d | xargs ls -la
+Expected: find . -maxdepth 1 -type f -name "*.txt"
+
+---
+Query: list entries sorted by modification time, newest first
+Difficulty: hard
+Expected: ls -t
+Expected: ls -lt
+Expected: ls -l -t
+Expected: ls -t -l
+Expected: ls -lt | tail -n 20
+
+---
+Query: show only the first 5 lines of groceries.txt
+Difficulty: hard
+Expected: head -5 groceries.txt
+Expected: head -n 5 groceries.txt
+Expected: head -5 groceries.txt
+Expected: head -n5 groceries.txt
+
+---
+Query: show only the last 5 lines of groceries.txt
+Difficulty: hard
+Expected: tail -5 groceries.txt
+Expected: tail -n 5 groceries.txt
+Expected: tail -5 groceries.txt
+Expected: tail -n5 groceries.txt
+
+---
+Query: show disk space used by the current directory
+Difficulty: hard
+Expected: du .
+Expected: du -sh .
+Expected: du -s .
+Expected: du -s
+Expected: du
+Expected: du -h .
+Expected: du -sh
+Expected: df -h .
+Note: df is free space; accept when model confuses du/df
+
+---
+Query: show free disk space
+Difficulty: hard
+Expected: df
+Expected: df -h
+Expected: df -H
+Expected: df .
+
+---
+Query: search for files named like *.txt in the current tree
+Difficulty: hard
+Expected: find . -name "*.txt"
+Expected: find . -name '*.txt'
+Expected: find . -name *.txt
+Expected: find . -iname "*.txt"
+Expected: find . -type f -name "*.txt"
+
+---
+Query: make script.sh executable
+Difficulty: hard
+Expected: chmod +x script.sh
+Expected: chmod +x ./script.sh
+Expected: chmod 755 script.sh
+
+---
+Query: compress groceries.txt with gzip
+Difficulty: hard
+Expected: gzip groceries.txt
+Expected: gzip -k groceries.txt
+Expected: gzip --keep groceries.txt
+
+---
+Query: print only the names of files that contain the word protein
+Difficulty: hard
+Expected: grep -l protein *
+Expected: grep -l "protein" *
+Expected: grep -l protein groceries.txt
+Expected: grep --files-with-matches protein *
+
+---
+Query: search for watermelon recursively in all subdirectories
+Difficulty: hard
+Expected: grep -r watermelon .
+Expected: grep -r "watermelon" .
+Expected: grep -R watermelon .
+
+---
+Query: show line numbers for each matching line when searching for protein in groceries.txt
+Difficulty: hard
+Expected: grep -n protein groceries.txt
+Expected: grep -n "protein" groceries.txt
+
+---
+Query: count the number of words in groceries.txt
+Difficulty: hard
+Expected: wc -w groceries.txt
+Expected: wc --words groceries.txt
+
+---
+Query: sort groceries.txt numerically
+Difficulty: hard
+Expected: sort -n groceries.txt
+Expected: sort -n groceries.txt
+
+---
+Query: sort the lines of groceries.txt in reverse order
+Difficulty: hard
+Expected: sort -r groceries.txt
+Expected: sort --reverse groceries.txt
+
+---
+Query: create the directory path notes/drafts/2024 including any missing parent directories
+Difficulty: hard
+Expected: mkdir -p notes/drafts/2024
+Expected: mkdir -p notes/drafts/2024/
+
+---
+Query: find all files in the current directory tree that are larger than 1 megabyte
+Difficulty: hard
+Expected: find . -type f -size +1M
+Expected: find . -size +1M -type f
+Expected: find . -type f -size +1048576c
+
+---
+Query: remove all blank lines from groceries.txt in place
+Difficulty: hard
+Expected: sed -i '/^$/d' groceries.txt
+Expected: sed -i '/^[[:space:]]*$/d' groceries.txt
+Expected: sed -i '/^\s*$/d' groceries.txt
+Expected: grep -v '^$' groceries.txt > groceries.txt.tmp && mv groceries.txt.tmp groceries.txt
+Expected: grep -v '^$' groceries.txt > temp && mv temp groceries.txt
+
+---
+Query: show only the byte count of groceries.txt
+Difficulty: hard
+Expected: wc -c groceries.txt
+Expected: wc --bytes groceries.txt
+
+---
+Query: remove the file todo.txt without prompting even if it is read-only
+Difficulty: hard
+Expected: rm -f todo.txt
+Expected: rm --force todo.txt
+
+---
+Query: copy the documents folder and everything inside it to backup_documents
+Difficulty: hard
+Expected: cp -r documents backup_documents
+Expected: cp -R documents backup_documents
+Expected: cp --recursive documents backup_documents
+
+---
+Query: show the last 20 bytes of groceries.txt
+Difficulty: hard
+Expected: tail -c 20 groceries.txt
+Expected: tail -c20 groceries.txt
+Expected: tail --bytes=20 groceries.txt
+
+---
+Query: list files sorted by size, largest first
+Difficulty: hard
+Expected: ls -S
+Expected: ls -lS
+Expected: ls -l -S
+Expected: ls --sort=size
+Expected: du -h --max-depth=1 | sort -hr
+
+---
+Query: show only the first 10 bytes of groceries.txt
+Difficulty: hard
+Expected: head -c 10 groceries.txt
+Expected: head -c10 groceries.txt
+Expected: head --bytes=10 groceries.txt
+
+---
+Query: find files modified in the last 7 days
+Difficulty: hard
+Expected: find . -type f -mtime -7
+Expected: find . -mtime -7 -type f
+Expected: find . -type f -mtime -7 .
+
+---
+Query: make only the owner able to read and write script.sh
+Difficulty: hard
+Expected: chmod 600 script.sh
+Expected: chmod u=rw,go= script.sh
+Expected: chmod u+rw,g-rwx,o-rwx script.sh

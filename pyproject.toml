@@ -1,0 +1,14 @@
+[project]
+name = "desktop-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.0.0",
+    "graphrag>=2.7.0",
+    "langchain>=1.0.3",
+    "neo4j>=6.0.3",
+    "sentence-transformers>=5.1.2",
+    "typer>=0.20.0",
+]
